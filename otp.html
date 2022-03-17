@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>
+        Otp Screen
+    </h1>
+    <form action="#" id="phone-otp-submission">
+        <input type="text" name="otp" id="phone-field" placeholder="Enter Otp">
+        <input type = "submit" name="submit" value="submit">
+    </form>
+   <script>
+
+       const _=(id)=>document.getElementById(id);
+    //    console.log(localStorage.getItem("token"));
+    _('phone-otp-submission').addEventListener('submit',(e)=>{
+       e.preventDefault();
+       var url = new URL(window.location.href);
+       var phone = url.searchParams.get("phone");
+       var email = url.searchParams.get("email");
+       var token = localStorage.getItem("token");
+       var otp = _("phone-field").value;
+       const data = {
+         phone:phone,
+         otp:otp,
+         type:"phone",
+        }
+
+        fetch('http://192.168.1.39:5000/auth/otp-validate',{
+            method: 'POST',
+            headers :{
+                'Content-Type':'application/json',
+                 "Authorization":`Bearer ${token}`
+            },
+            body:JSON.stringify(data)
+         }).then(res=>res.json()).then(data=>{
+            console.log(data);
+
+         })
+
+    })
+
+   </script> 
+</body>
+</html>

@@ -25,8 +25,7 @@ function validate(event){
             });
             }
     
-    function submit(data)
-    {
+    function submit(data){
     fetch("http://192.168.1.39:5000/organization/register",{
     method:"POST",
     headers:{
@@ -48,14 +47,15 @@ function validate(event){
          
      }
      else{
-         console.log("success");
+         localStorage.setItem("token",result.data.token);
+         window.location.href =
+         "./otp.html?phone=" + data.phone + "&email=" + data.email;
      }
     // window.location.href = "./user.html?id=" + result.id;
-// })
-// .catch((err) => {
-//     console.log(err);
+// )
+//  .catch((err) => {
+    //  console.log(err);
 // });
- })
+ } )
 }
-
-        
+ 
