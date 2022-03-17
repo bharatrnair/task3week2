@@ -13,6 +13,9 @@
     <form action="#" id="phone-otp-submission">
         <input type="text" name="otp" id="phone-field" placeholder="Enter Otp">
         <input type = "submit" name="submit" value="submit">
+        <div class="otp-error" id = "otp-error">
+
+        </div>
     </form>
    <script>
 
@@ -38,8 +41,12 @@
                  "Authorization":`Bearer ${token}`
             },
             body:JSON.stringify(data)
-         }).then(res=>res.json()).then(data=>{
-            console.log(data);
+         }).then(res=>res.json()).then(result=>{
+            if(!result.status){
+                _("otp-error").innerText = result.data[0].message;
+            }else{
+                alert("success");
+            }
 
          })
 
